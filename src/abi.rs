@@ -1,135 +1,165 @@
 use std::fs;
+use std::fs::File;
+use std::io::prelude::*;
 
-pub fn GROUPS() -> String {
-    let groups_data =
-        fs::read_to_string("src/strategies/abis/groups.json").expect("Unable to read file");
-    // let json = serde_json::from_str(&groups_data).expect("JSON does not have correct format.");
-    groups_data
+pub fn groups() -> String {
+    let mut file = File::open("src/abis/groups.json").expect("File not found");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Error while reading file");
+    data
 }
-pub fn ESUSU_SERVICE() -> String {
-    let esusu_data =
-        fs::read_to_string("src/strategies/abis/EsusuService.json").expect("Unable to read file");
-    esusu_data
+pub fn esusu_service() -> String {
+    let mut file = File::open("src/abis/EsusuService.json").expect("File not found");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Error while reading file");
+    data
 }
-pub fn ESUSU_ADAPTER() -> String {
-    let esusu_adapter =
-        fs::read_to_string("src/strategies/abis/EsusuAdapter.json").expect("Unable to read file");
-    esusu_adapter
+pub fn esusu_adapter() -> String {
+    let mut file = File::open("src/abis/EsusuAdapter.json").expect("File not found");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Error while reading file");
+    data
 }
-pub fn ESUSU_STORAGE() -> String {
-    let esusu_storage =
-        fs::read_to_string("src/strategies/abis/EsusuStorage.json").expect("Unable to read file");
-    esusu_storage
+pub fn esusu_storage() -> String {
+    let mut file = File::open("src/abis/EsusuStorage.json").expect("File not found");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Error while reading file");
+    data
 }
-pub fn COOPERATIVE() -> String {
-    let cooperative = fs::read_to_string("src/strategies/abis/XendFinanceGroup.json")
-        .expect("Unable to read file");
-    cooperative
+pub fn cooperative() -> String {
+    let mut file = File::open("src/abis/XendFinanceGroup.json").expect("File not found");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Error while reading file");
+    data
 }
-pub fn FADAPTER() -> String {
-    let fadapter = fs::read_to_string("src/strategies/abis/FortubeAdapterTestnet.json")
-        .expect("Unable to read file");
-    fadapter
+pub fn fadapter() -> String {
+    let mut file = File::open("src/abis/FortubeAdapterTestnet.json").expect("File not found");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Error while reading file");
+    data
 }
-pub fn TOKEN() -> String {
-    let token =
-        fs::read_to_string("src/strategies/abis/DaiContract.json").expect("Unable to read file");
-    token
+pub fn token() -> String {
+    let mut file = File::open("src/abis/DaiContract.json").expect("File not found");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Error while reading file");
+    data
 }
-pub fn PERSONAL() -> String {
-    let personal = fs::read_to_string("src/strategies/abis/XendFinanceIndividual_Yearn_V1.json")
-        .expect("Unable to read file");
-    personal
+pub fn personal() -> String {
+    let mut file = File::open("src/abis/XendFinanceIndividual_Yearn_V1.json").expect("File not found");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Error while reading file");
+    data
 }
-pub fn CLIENT_RECORD() -> String {
-    let client_record =
-        fs::read_to_string("src/strategies/abis/ClientRecord.json").expect("Unable to read file");
-    client_record
+pub fn client_record() -> String {
+    let mut file = File::open("src/abis/ClientRecord.json").expect("File not found");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Error while reading file");
+    data
 }
-pub fn CYCLES() -> String {
-    let cycles =
-        fs::read_to_string("src/strategies/abis/Cycles.json").expect("Unable to read file");
-    cycles
+pub fn cycles() -> String {
+    let mut file = File::open("src/abis/Cycles.json").expect("File not found");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Error while reading file");
+    data
 }
-pub fn PROTOCOL_ADAPTER() -> String {
-    let protocol_adapter = fs::read_to_string("src/strategies/abis/ProtocolAdapter.json")
-        .expect("Unable to read file");
-    protocol_adapter
+pub fn protocol_adapter() -> String {
+    let mut file = File::open("src/abis/ProtocolAdapter.json").expect("File not found");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Error while reading file");
+    data
 }
-pub fn XAUTO() -> String {
-    let xauto = fs::read_to_string("src/strategies/abis/xAuto.json").expect("Unable to read file");
-    xauto
+pub fn xauto() -> String {
+    let mut file = File::open("src/abis/xAuto.json").expect("File not found");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Error while reading file");
+    data
 }
-pub fn XVAULT() -> String {
-    let xvault =
-        fs::read_to_string("src/strategies/abis/xVault.json").expect("Unable to read file");
-    xvault
+pub fn xvault() -> String {
+    let mut file = File::open("src/abis/xVault.json").expect("File not found");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Unable to read file");
+    data
 }
-pub fn ERC20() -> String {
-    let erc20 = fs::read_to_string("src/strategies/abis/ER20.json").expect("Unable to read file");
-    erc20
+pub fn erc_20() -> String {
+    let mut file = File::open("src/abis/ER20.json").expect("File not found");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Error while reading file");
+    data
 }
-pub fn BUSD() -> String {
-    let busd = fs::read_to_string("src/strategies/abis/busd.json").expect("Unable to read file");
-    busd
+pub fn busd() -> String {
+    let mut file = File::open("src/abis/busd.json").expect("File not found");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Error while reading file");
+    data
 }
 // //v2 XVault BSC
-pub fn xvVaultUSDCV2() -> String {
-    let xvusdc = fs::read_to_string("src/strategies/abis/V2XVault/XVaultUSDCV2.json")
-        .expect("Unable to read file");
-    xvusdc
+pub fn xv_vault_usdcv2() -> String {
+    let mut file = File::open("src/abis/V2XVault/XVaultUSDCV2.json").expect("File not found");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Error while reading file");
+    data
 }
-pub fn xvVaultUSDTV2() -> String {
-    let xvusdt = fs::read_to_string("src/strategies/abis/V2XVault/XVaultUSDTV2.json")
-        .expect("Unable to read file");
-    xvusdt
+pub fn xv_vault_usdtv2() -> String {
+    let mut file = File::open("src/abis/V2XVault/XVaultUSDTV2.json").expect("File not found");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Error while reading file");
+    data
 }
-pub fn xvVaultBUSDV2() -> String {
-    let xvbusd = fs::read_to_string("src/strategies/abis/V2XVault/XVaultBUSDV2.json")
-        .expect("Unable to read file");
-    xvbusd
+pub fn xv_vault_busdv2() -> String {
+    let mut file = File::open("src/abis/V2XVault/XVaultBUSDV2.json").expect("File not found");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Error while reading file");
+    data
 }
 
 // //v2 XAuto BSC
-pub fn xvAutoBSCBUSDV2() -> String {
-    let xvbscbusd = fs::read_to_string("src/strategies/abis/V2XAuto/xvAutoBUSDV2.json")
-        .expect("Unable to read file");
-    xvbscbusd
+pub fn xv_auto_bscbusdv2() -> String {
+    let mut file = File::open("src/abis/V2XAuto/xvAutoBUSDV2.json").expect("File not found");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Error while reading file");
+    data
 }
-pub fn xvAutoBSCUSDCV2() -> String {
-    let xvbscusdc = fs::read_to_string("src/strategies/abis/V2XAuto/xvAutoUSDCV2.json")
-        .expect("Unable to read file");
-    xvbscusdc
+pub fn xv_auto_bscusdcv2() -> String {
+    let mut file = File::open("src/abis/V2XAuto/xvAutoUSDCV2.json").expect("File not found");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Error while reading file");
+    data
 }
-pub fn xvAutoBSCUSDTV2() -> String {
-    let xvbscusdt = fs::read_to_string("src/strategies/abis/V2XAuto/xvAutoUSDTV2.json")
-        .expect("Unable to read file");
-    xvbscusdt
+pub fn xv_auto_bscusdtv2() -> String {
+    let mut file = File::open("src/abis/V2XAuto/xvAutoUSDTV2.json").expect("File not found");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Error while reading file");
+    data
 }
-pub fn xvAutoBSCBNBV2() -> String {
-    let xvbscbnb = fs::read_to_string("src/strategies/abis/V2XAuto/xvAutoBNBV2.json")
-        .expect("Unable to read file");
-    xvbscbnb
+pub fn xv_auto_bscbnbv2() -> String {
+    let mut file = File::open("src/abis/V2XAuto/xvAutoBNBV2.json").expect("File not found");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Error while reading file");
+    data
 }
 
 // //v2 XAuto Matic
-pub fn xvAutoUSDCV2Matic() -> String {
-    let xvusdc_matic = fs::read_to_string("src/strategies/abis/V2XAutoMatic/xvAutoUSDCV2.json")
-        .expect("Unable to read file");
-    xvusdc_matic
+pub fn xv_auto_usdcv2_matic() -> String {
+    let mut file = File::open("src/abis/V2XAutoMatic/xvAutoUSDCV2.json").expect("File not found");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Error while reading file");
+    data
 }
-pub fn xvAutoUSDTV2Matic() -> String {
-    let xvusdt_matic = fs::read_to_string("src/strategies/abis/V2XAutoMatic/xvAutoUSDTV2.json")
-        .expect("Unable to read file");
-    xvusdt_matic
+pub fn xv_auto_usdtv2_matic() -> String {
+    let mut file = File::open("src/abis/V2XAutoMatic/xvAutoUSDTV2.json").expect("File not found");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Error while reading file");
+    data
 }
-pub fn xvAutoAAVEV2Matic() -> String {
-    let xvaave_matic = fs::read_to_string("src/strategies/abis/V2XAutoMatic/xvAutoAAVEV2.json")
-        .expect("Unable to read file");
-    xvaave_matic
+pub fn xv_auto_aavev2_matic() -> String {
+    let mut file = File::open("src/abis/V2XAutoMatic/xvAutoAAVEV2.json").expect("File not found");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Error while reading file");
+    data
 }
-pub fn xvAutoWBTCV2Matic() -> String {
-    let xvwbtc_matic = fs::read_to_string("src/strategies/abis/V2XAutoMatic/xvAutoWBTCV2.json")
-        .expect("Unable to read file");
-    xvwbtc_matic
+pub fn xv_auto_wbtcv2_matic() -> String {
+    let mut file = File::open("src/abis/V2XAutoMatic/xvAutoWBTCV2.json").expect("File not found");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Error while reading file");
+    data
 }

@@ -6,7 +6,10 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-ethers = { git = "https://github.com/gakonst/ethers-rs" }
+# ethers = { git = "https://github.com/gakonst/ethers-rs" }
+ethers-core = "0.5.6"
+ethers-contract = "0.5.3"
+ethers-providers = "0.5.5"
 serde = "1.0.117"
 serde_derive = "1.0.117"
 serde_json = "1.0.59"
@@ -16,3 +19,8 @@ tokio = { version = "1", features = ["full"] }
 reqwest = { version = "0.11.0", features = ["json"] }
 exitfailure = "0.5.1"
 tinyjson = "2.3.0"
+secp256k1 = "0.22.1"
+hex = "0.4.3"
+tiny-keccak = { version = "1.4" }
+try-catch = "0.2.2"
+async-trait = "0.1.56"
