@@ -1,10 +1,10 @@
+use super::super::abi;
 use serde_derive::Deserialize;
 use serde_derive::Serialize;
-use super::super::abi;
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct layer2Asset{
+pub struct layer2_asset {
     pub name: String,
     pub logo: String,
     pub token_address: String,
@@ -44,146 +44,148 @@ const WBTC_MATIC: &str = "0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6";
 const USDT_MATIC: &str = "0xc2132D05D31c914a87C6611C10748AEb04B58e8F";
 const USDC_MATIC: &str = "0x2791bca1f2de4661ed88a30c99a7a9449aa84174";
 
-pub fn get_layer2_assets() -> [layer2Asset; 11] {
+const ERROR: &str = "";
+
+pub fn get_layer2_assets() -> [layer2_asset; 11] {
     let layer2Assets = [
-        layer2Asset {
+        layer2_asset {
             name: "USDC".to_string(),
             logo: "".to_string(),
             token_address: USDC_BSC.to_string(),
-            token_abi: abi::ERC20(),
+            token_abi: abi::erc_20(),
             protocol_name: "xVault".to_string(),
             protocol_address: USDC_BSC_XVault.to_string(),
-            protocol_abi: abi::xvVaultUSDCV2(),
+            protocol_abi: abi::xv_vault_usdcv2(),
             network: 56,
             decimals: 18,
             widthdraw_decimals: 36,
             ppfs_method: "pricePerShare".to_string(),
         },
-        layer2Asset {
+        layer2_asset {
             name: "USDT".to_string(),
             logo: "".to_string(),
             token_address: USDT_BSC.to_string(),
-            token_abi: abi::ERC20(),
+            token_abi: abi::erc_20(),
             protocol_name: "xVault".to_string(),
             protocol_address: USDT_BSC_XVault.to_string(),
-            protocol_abi: abi::xvVaultUSDTV2(),
+            protocol_abi: abi::xv_vault_usdtv2(),
             network: 56,
             decimals: 18,
             widthdraw_decimals: 36,
             ppfs_method: "pricePerShare".to_string(),
         },
-        layer2Asset {
+        layer2_asset {
             name: "BUSD".to_string(),
             logo: "".to_string(),
             token_address: BUSD_BSC.to_string(),
-            token_abi: abi::ERC20(),
+            token_abi: abi::erc_20(),
             protocol_name: "xVault".to_string(),
             protocol_address: BUSD_BSC_XVault.to_string(),
-            protocol_abi: abi::xvVaultBUSDV2(),
+            protocol_abi: abi::xv_vault_busdv2(),
             network: 56,
             decimals: 18,
             widthdraw_decimals: 36,
             ppfs_method: "pricePerShare".to_string(),
         },
-        layer2Asset {
+        layer2_asset {
             name: "BUSD".to_string(),
             logo: "".to_string(),
             token_address: BUSD_BSC.to_string(),
-            token_abi: abi::BUSD(),
+            token_abi: abi::busd(),
             protocol_name: "xAuto".to_string(),
             protocol_address: BUSD_BSC_XAuto.to_string(),
-            protocol_abi: abi::xvAutoBSCBUSDV2(),
+            protocol_abi: abi::xv_auto_bscbusdv2(),
             network: 56,
             decimals: 18,
             widthdraw_decimals: 36,
             ppfs_method: "getPricePerFullShare".to_string(),
         },
-        layer2Asset {
+        layer2_asset {
             name: "USDT".to_string(),
             logo: "".to_string(),
             token_address: USDT_BSC.to_string(),
-            token_abi: abi::ERC20(),
+            token_abi: abi::erc_20(),
             protocol_name: "xAuto".to_string(),
             protocol_address: USDT_BSC_XAuto.to_string(),
-            protocol_abi: abi::xvAutoBSCUSDTV2(),
+            protocol_abi: abi::xv_auto_bscusdtv2(),
             network: 56,
             decimals: 18,
             widthdraw_decimals: 36,
             ppfs_method: "getPricePerFullShare".to_string(),
         },
-        layer2Asset {
+        layer2_asset {
             name: "BNB".to_string(),
             logo: "".to_string(),
             token_address: "".to_string(),
-            token_abi: abi::ERC20(),
+            token_abi: abi::erc_20(),
             protocol_name: "xAuto".to_string(),
             protocol_address: USDT_BNB_XAuto.to_string(),
-            protocol_abi: abi::xvAutoBSCBNBV2(),
+            protocol_abi: abi::xv_auto_bscbnbv2(),
             network: 56,
             decimals: 18,
             widthdraw_decimals: 36,
             ppfs_method: "getPricePerFullShare".to_string(),
         },
-        layer2Asset {
+        layer2_asset {
             name: "USDC".to_string(),
             logo: "".to_string(),
             token_address: USDC_BSC.to_string(),
-            token_abi: abi::ERC20(),
+            token_abi: abi::erc_20(),
             protocol_name: "xAuto".to_string(),
             protocol_address: USDC_BSC_XAuto.to_string(),
-            protocol_abi: abi::xvAutoBSCUSDCV2(),
+            protocol_abi: abi::xv_auto_bscusdcv2(),
             network: 56,
             decimals: 18,
             widthdraw_decimals: 36,
             ppfs_method: "getPricePerFullShare".to_string(),
         },
-        layer2Asset {
+        layer2_asset {
             name: "USDC".to_string(),
             logo: "".to_string(),
             token_address: USDC_MATIC.to_string(),
-            token_abi: abi::ERC20(),
+            token_abi: abi::erc_20(),
             protocol_name: "xAuto".to_string(),
             protocol_address: USDC_Matic_XAuto.to_string(),
-            protocol_abi: abi::xvAutoUSDCV2Matic(),
+            protocol_abi: abi::xv_auto_usdcv2_matic(),
             network: 137,
             decimals: 18,
             widthdraw_decimals: 24,
             ppfs_method: "getPricePerFullShare".to_string(),
         },
-        layer2Asset {
+        layer2_asset {
             name: "USDT".to_string(),
             logo: "".to_string(),
             token_address: USDT_MATIC.to_string(),
-            token_abi: abi::ERC20(),
+            token_abi: abi::erc_20(),
             protocol_name: "xAuto".to_string(),
             protocol_address: USDT_Matic_XAuto.to_string(),
-            protocol_abi: abi::xvAutoUSDTV2Matic(),
+            protocol_abi: abi::xv_auto_usdtv2_matic(),
             network: 137,
             decimals: 18,
             widthdraw_decimals: 24,
             ppfs_method: "getPricePerFullShare".to_string(),
         },
-        layer2Asset {
+        layer2_asset {
             name: "AAVE".to_string(),
             logo: "".to_string(),
             token_address: AAVE_MATIC.to_string(),
-            token_abi: abi::ERC20(),
+            token_abi: abi::erc_20(),
             protocol_name: "xAuto".to_string(),
             protocol_address: AAVE_Matic_XAuto.to_string(),
-            protocol_abi: abi::xvAutoAAVEV2Matic(),
+            protocol_abi: abi::xv_auto_aavev2_matic(),
             network: 137,
             decimals: 18,
             widthdraw_decimals: 36,
             ppfs_method: "getPricePerFullShare".to_string(),
         },
-        layer2Asset {
+        layer2_asset {
             name: "WBTC".to_string(),
             logo: "".to_string(),
             token_address: WBTC_MATIC.to_string(),
-            token_abi: abi::ERC20(),
+            token_abi: abi::erc_20(),
             protocol_name: "xAuto".to_string(),
             protocol_address: WBTC_Matic_XAuto.to_string(),
-            protocol_abi: abi::xvAutoWBTCV2Matic(),
+            protocol_abi: abi::xv_auto_wbtcv2_matic(),
             network: 137,
             decimals: 18,
             widthdraw_decimals: 26,
@@ -191,4 +193,32 @@ pub fn get_layer2_assets() -> [layer2Asset; 11] {
         },
     ];
     layer2Assets
+}
+
+
+pub async fn filter_token(token_name: String, network: i64, protocol: String) -> layer2_asset {
+    let result: [layer2_asset; 11] = get_layer2_assets();
+    let asset_result = result
+        .into_iter()
+        .filter(|pro| {
+            pro.name == token_name && pro.network == network && pro.protocol_name == protocol
+        })
+        .last();
+    let asset:layer2_asset = match asset_result {
+        None => layer2_asset{
+            name: "error".to_string(),
+            logo: "".to_string(),
+            token_address: ERROR.to_string(),
+            token_abi: abi::erc_20(),
+            protocol_name: "error".to_string(),
+            protocol_address: ERROR.to_string(),
+            protocol_abi: "error".to_string(),
+            network: 0,
+            decimals: 18,
+            widthdraw_decimals: 0,
+            ppfs_method: "error".to_string(),
+        },
+        Some(asset_result)=>asset_result,
+    };
+    asset
 }

@@ -1,5 +1,10 @@
-pub mod assets;
 pub mod constants;
-pub mod getAddresses;
+pub mod get_addresses;
 pub mod helpers;
 pub mod layer2_assets;
+pub mod client;
+pub mod price_per_full_share;
+pub mod privatekey_to_address;
+pub mod web3_init;
+pub mod balance;
+pub mod protocol_selector;
