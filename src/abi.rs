@@ -1,6 +1,7 @@
 use std::fs;
 use std::fs::File;
 use std::io::prelude::*;
+use std::str::FromStr;
 
 pub fn groups() -> String {
     let mut file = File::open("src/abis/groups.json").expect("File not found");
@@ -39,10 +40,12 @@ pub fn fadapter() -> String {
     data
 }
 pub fn token() -> String {
-    let mut file = File::open("src/abis/DaiContract.json").expect("File not found");
-    let mut data = String::new();
-    file.read_to_string(&mut data).expect("Error while reading file");
-    data
+    let path: String = "src/abis/DaiContract.json".to_string();
+    path
+    // let mut file = File::open("src/abis/DaiContract.json").expect("File not found");
+    // let mut data = String::new();
+    // file.read_to_string(&mut data).expect("Error while reading file");
+    // data
 }
 pub fn personal() -> String {
     let mut file = File::open("src/abis/XendFinanceIndividual_Yearn_V1.json").expect("File not found");

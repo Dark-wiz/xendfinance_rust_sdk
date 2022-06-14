@@ -13,7 +13,7 @@ use crate::utilities::{
     price_per_full_share::get_price_per_full_share,
     privatekey_to_address::retrieve_address,
     protocol_selector::{protocol_selector, AvailableAddress},
-    web3_init::create_wallet,
+    web3_init::{create_wallet, WalletKeys},
 };
 
 #[derive(Clone, Debug)]
@@ -92,7 +92,7 @@ impl XendFinanceSdk {
     //     }
     // }
 
-    pub async fn create_wallet(&self) -> Address {
+    pub async fn create_wallet(&self) -> WalletKeys {
         let address = create_wallet(self.chain_id).await;
         address
     }
@@ -109,7 +109,7 @@ impl XendFinanceSdk {
             self.addresses.clone(),
         )
         .await;
-        response
+        response.to_string()
     }
 
     pub async fn get_ppfs(&self) {
@@ -137,4 +137,8 @@ impl XendFinanceSdk {
 }
 #[tokio::main]
 async fn main() {
+    let pk: String = "".to_string();
+    let option_val = Options::new("mainnet").await;
+    let xf = XendFinanceSdk::new(56, pk,option_val ).await;
+    print!("{:?}",  xf.wallet_balance().await);
 }

@@ -1,8 +1,8 @@
 use super::get_addresses;
-use web3::types::{BlockId, BlockNumber, TransactionId, H160, U256, U64};
+use ether_converter;
 use serde_derive::Deserialize;
 use serde_derive::Serialize;
-
+use web3::types::{BlockId, BlockNumber, TransactionId, H160, U256, U64};
 
 #[derive(Debug)]
 pub struct ProviderType {
@@ -32,7 +32,6 @@ pub struct ApyData {
     pub created_at: String,
     pub updated_at: String,
 }
-
 
 pub const APYS_URL: &str = "https://api.xend.finance/xend-finance/apys";
 pub const PROTOCOL_ADDRESS_URL: &str = "https://api.xend.finance/xend-finance/addresses";
@@ -149,5 +148,29 @@ pub fn capitalize_first_letter(s: String) -> String {
     match c.next() {
         None => String::new(),
         Some(f) => f.to_uppercase().collect::<String>() + c.as_str(),
+    }
+}
+
+pub fn format_amount(amount: String, network: i32, asset_name: &str) -> String {
+    match network {
+        BSC_MAINNET => {
+            let result = ether_converter::to_wei(amount.as_str(), "ether");
+            result
+        }
+        POLYGON_MAINNET => {
+            if asset_name == "WBTC" {
+                let result = ether_converter::to_wei(amount.as_str(), "ether");
+                result
+            } else if asset_name == "AAVE" {
+                let power = f32::powf(10.0, 8.0);
+                let f: f32 = amount.parse().unwrap();
+                let result: f32 = power * f;
+                result.to_string()
+            } else {
+                let result = ether_converter::to_wei(amount.as_str(), "mwei");
+                result
+            }
+        }
+        _ => amount,
     }
 }

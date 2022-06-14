@@ -12,9 +12,9 @@ pub struct layer2_asset {
     pub protocol_name: String,
     pub protocol_address: String,
     pub protocol_abi: String,
-    pub network: i64,
-    pub decimals: i64,
-    pub widthdraw_decimals: i64,
+    pub network: i32,
+    pub decimals: i32,
+    pub widthdraw_decimals: i32,
     pub ppfs_method: String,
 }
 
@@ -196,7 +196,7 @@ pub fn get_layer2_assets() -> [layer2_asset; 11] {
 }
 
 
-pub async fn filter_token(token_name: String, network: i64, protocol: String) -> layer2_asset {
+pub async fn filter_token(token_name: String, network: i32, protocol: String) -> layer2_asset {
     let result: [layer2_asset; 11] = get_layer2_assets();
     let asset_result = result
         .into_iter()
