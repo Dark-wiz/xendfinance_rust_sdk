@@ -62,7 +62,7 @@ pub fn get_chain_id(id: u64) -> ProviderType {
 #[derive(Debug)]
 pub struct TransactionResult {
     pub transaction_hash: String,
-    pub status: bool
+    // pub status: bool
 }
 
 #[derive(Debug)]

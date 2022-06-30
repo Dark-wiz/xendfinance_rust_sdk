@@ -57,7 +57,7 @@ impl x_auto {
 
         let convert_amount = ether_converter::to_wei(amount.as_str(), "ether");
         let amount_in_wei = U256::from_dec_str(&convert_amount).unwrap();
-        println!("new_amount {:?}", amount_in_wei);
+
         let token_addr = Address::from_str(token.protocol_address.clone().as_str()).unwrap();
 
         let tx = contract
@@ -67,7 +67,6 @@ impl x_auto {
         let receipt: TransactionReceipt = tx.send().await?.await?.unwrap(); // Send transaction
         let result = TransactionResult {
             transaction_hash: receipt.transaction_hash.to_string(),
-            status: true,
         };
         Ok(result)
     }
@@ -88,18 +87,15 @@ impl x_auto {
 
         let convert_amount = ether_converter::to_wei(amount.as_str(), "ether");
         let amount_in_wei = U256::from_dec_str(&convert_amount).unwrap();
-        println!("new_amount {:?}", amount_in_wei);
 
         let tx = contract
             .method::<_, U256>("deposit", (amount_in_wei).to_owned())?
             .legacy();
 
         let receipt: TransactionReceipt = tx.send().await?.await?.unwrap(); // Send transaction
-        println!("Tx Hash: {:#x}", receipt.transaction_hash);
 
         let result = TransactionResult {
             transaction_hash: receipt.transaction_hash.to_string(),
-            status: true,
         };
         Ok(result)
     }
@@ -118,8 +114,7 @@ impl x_auto {
         )
         .await;
 
-        let client_address =
-            retrieve_address(&self.private_key, self.chain_id, PROTOCOL.to_string());
+        let client_address = retrieve_address(&self.private_key, self.chain_id, self.rpc.clone());
 
         let share = contract
             .method::<_, U256>("balanceOf", client_address)?
@@ -131,46 +126,33 @@ impl x_auto {
             .call()
             .await?; //get price per full shares
 
-        println!("share-{:?}, ppfs-{:?}", share, ppfs);
-
         let withdrawal_decimal = 36;
         let divisor = u128::pow(10, withdrawal_decimal) as f64;
-        // let new_divsor = U256::from_dec_str(&divisor).unwrap();
-        println!("divisor-{:?}", divisor);
+
         let share_ppfs = share.checked_mul(ppfs).unwrap(); //total shares
         let new_share_ppfs = U256::as_u128(&share_ppfs) as f64;
         let total_deposit = new_share_ppfs.div(divisor);
-        println!(
-            "share_ppfs-{:?}, total_deposit-{:?}",
-            new_share_ppfs, total_deposit
-        );
+
         let convert_amount_to_wei = ether_converter::to_wei(amount.as_str(), "ether");
         let new_amount_u256 = U256::from_dec_str(convert_amount_to_wei.as_str()).unwrap();
         let new_amount = U256::as_u128(&new_amount_u256) as f64;
 
         let user_shares = new_share_ppfs * new_amount; //returns user share amoount
-        println!("user_shares-{:?}", user_shares);
-
         let withdrawal_amount = (user_shares / total_deposit).floor(); //return withdrawable amount
                                                                        // let new_float = withdrawal_amount.parse().unwrap();
-        println!("withdrawal_amount - {:?}", withdrawal_amount);
         let final_val = withdrawal_amount.div(1e54).to_string();
-        println!("withdrawal_amount formatted -{:?}", final_val);
 
         let convert_amount = ether_converter::to_wei(&final_val, "ether");
         let amount_in_wei = U256::from_dec_str(&convert_amount).unwrap();
-        println!("new_amount {:?}", amount_in_wei);
 
         let tx = contract
             .method::<_, U256>("withdraw", (amount_in_wei).to_owned())?
             .legacy();
 
         let receipt: TransactionReceipt = tx.send().await?.await?.unwrap(); // Send transaction
-        println!("Tx Hash: {:#x}", receipt.transaction_hash);
 
         let result = TransactionResult {
             transaction_hash: receipt.transaction_hash.to_string(),
-            status: true,
         };
         Ok(result)
     }
