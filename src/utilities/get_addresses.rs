@@ -5,8 +5,8 @@ use std::borrow::Borrow;
 use std::fmt;
 
 use super::helpers;
-use super::helpers::PROTOCOL_ADDRESS_URL;
 use super::helpers::get_address_by_name;
+use super::helpers::PROTOCOL_ADDRESS_URL;
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -141,10 +141,7 @@ pub async fn get_mainnet_protocols() -> Vec<BscProtocols> {
                         String::from("xend_token"),
                     ),
                     token: get_address_by_name(protocol.addresses.clone(), String::from("token")),
-                    protocol_currency: get_address_by_name(
-                        protocol.addresses.clone(),
-                        String::from("busd"),
-                    ),
+                    protocol_currency: format!("{}busd", protocol.protocol_name.chars().nth(0).unwrap()),
                 },
             };
             new_vec.push(value);

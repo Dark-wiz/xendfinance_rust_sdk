@@ -2,14 +2,15 @@ use super::get_addresses;
 use ether_converter;
 use serde_derive::Deserialize;
 use serde_derive::Serialize;
-use web3::types::{BlockId, BlockNumber, TransactionId, H160, U256, U64};
+use ethers::prelude::{ U256, U64};
+
 
 #[derive(Debug)]
 pub struct ProviderType {
     pub name: String,
     pub currency: String,
     pub url: String,
-    pub chain: i32,
+    pub chain: u64,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -36,14 +37,17 @@ pub struct ApyData {
 pub const APYS_URL: &str = "https://api.xend.finance/xend-finance/apys";
 pub const PROTOCOL_ADDRESS_URL: &str = "https://api.xend.finance/xend-finance/addresses";
 
-pub const ETHEREUM_MAINNET: i32 = 1;
-pub const BSC_MAINNET: i32 = 56;
-pub const BSC_TESTNET: i32 = 97;
-pub const POLYGON_MAINNET: i32 = 137;
-pub const POLYGON_TESTNET: i32 = 80001;
-pub const LOCALHOST: i32 = 0;
 
-pub fn get_chain_id(id: i32) -> ProviderType {
+pub const SUCCESS_TX:u64 = 1;
+
+pub const ETHEREUM_MAINNET: u64 = 1;
+pub const BSC_MAINNET: u64 = 56;
+pub const BSC_TESTNET: u64 = 97;
+pub const POLYGON_MAINNET: u64 = 137;
+pub const POLYGON_TESTNET: u64 = 80001;
+pub const LOCALHOST: u64 = 0;
+
+pub fn get_chain_id(id: u64) -> ProviderType {
     match id {
         ETHEREUM_MAINNET => PROVIDERS(String::from("ETHEREUM_MAINNET")),
         BSC_MAINNET => PROVIDERS(String::from("BSC_MAINNET")),
@@ -53,6 +57,12 @@ pub fn get_chain_id(id: i32) -> ProviderType {
         LOCALHOST => PROVIDERS(String::from("LOCALHOST")),
         _ => PROVIDERS(String::from("LOCALHOST")),
     }
+}
+
+#[derive(Debug)]
+pub struct TransactionResult {
+    pub transaction_hash: String,
+    pub status: bool
 }
 
 #[derive(Debug)]
@@ -66,8 +76,7 @@ pub fn PROVIDERS(state: String) -> ProviderType {
         let ethereum = ProviderType {
             name: "ETHEREUM_MAINNET".to_string(),
             currency: "DAI".to_string(),
-            url: "https://eth-mainnet.alchemyapi.io/v2/2gdCD03uyFCNKcyEryqJiaPNtOGdsNLv"
-                .to_string(),
+            url: "https://eth-mainnet.alchemyapi.io/v2/2gdCD03uyFCNKcyEryqJiaPNtOGdsNLv".to_string(),
             chain: 1,
         };
         ethereum
@@ -131,15 +140,9 @@ pub fn get_address_by_name(addresses: Vec<get_addresses::ProtocolAddress>, name:
 
     let address = match response {
         Ok(val) => val.address,
-        Err(error) => String::from("failed to get address"),
+        Err(error) => panic!("failed to get address, {:?}", error),
     };
     address
-}
-
-pub fn wei_to_eth(wei_val: U256) -> f64 {
-    let res = wei_val.as_u128() as f64;
-    let res = res / 1_000_000_000_000_000_000.0;
-    res
 }
 
 pub fn capitalize_first_letter(s: String) -> String {
@@ -151,7 +154,7 @@ pub fn capitalize_first_letter(s: String) -> String {
     }
 }
 
-pub fn format_amount(amount: String, network: i32, asset_name: &str) -> String {
+pub fn format_amount(amount: String, network: u64, asset_name: &str) -> String {
     match network {
         BSC_MAINNET => {
             let result = ether_converter::to_wei(amount.as_str(), "ether");

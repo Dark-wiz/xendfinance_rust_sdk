@@ -1,41 +1,50 @@
-use ethers_core::{
-    abi::Abi,
-    types::{Address, H256},
-    // contract::{Contract, Options},
+use ethers::{
+    abi::{Abi},
+    contract::Contract,
+    prelude::{
+        k256::ecdsa::SigningKey, Address, Provider, Signer,
+        SignerMiddleware, Wallet,
+    },
 };
-use web3::contract::{Contract, Options};
-// use ethers_contract::Contract;
-use ethers_providers::{Http, Provider};
 
-enum Result<T, E> {
-    Ok(T),
-    Err(E),
-}
+use std::{
+    fs::File,
+    ops::{Div, Mul},
+    str::FromStr,
+};
 
 pub async fn create_contract(
     provider: String,
     abi: &str,
     contract_address: String,
-) -> Contract<web3::transports::Http> {
-    let address = contract_address.parse::<Address>();
+    private_key: &str,
+    chain_id: u64,
+) -> Contract<SignerMiddleware<Provider<ethers::prelude::Http>, Wallet<SigningKey>>> {
+    let contract_provider = create_provider(&provider);
 
-    let correct_address = match address {
-        Ok(val) => val,
-        Err(error) => panic!("Problem reading address: {:?}", error),
-    };
-    let transport = web3::transports::Http::new(provider.as_str());
-    let main_transport = match transport {
-        Ok(result) => result,
-        Err(error) => panic!("couldn't get contract {:?}", error),
-    };
+    let file = File::open(abi).expect("No JSON file");
+    let address = Address::from_str(&contract_address).unwrap();
 
-    let abi = std::fs::read(abi).expect("Can't read ABI from file");
-    let web3 = web3::Web3::new(main_transport);
-    let contract = Contract::from_json(web3.eth(), correct_address, &abi);
+    let wallet: Wallet<SigningKey> = private_key.parse().unwrap();
+    let wallet = wallet.with_chain_id(chain_id);
 
-    let main_contract = match contract {
-        Ok(result) => result,
-        Err(error) => panic!("couldn't get contract {:?}", error),
-    };
-    main_contract
+    let client = SignerMiddleware::new(contract_provider, wallet);
+
+    create_contract_instance(address, abi, client.clone())
+}
+
+// Create sign_able contract with provider
+fn create_contract_instance(
+    contract_address: Address,
+    abi_path: &str,
+    contract_provider: SignerMiddleware<Provider<ethers::prelude::Http>, Wallet<SigningKey>>,
+) -> Contract<SignerMiddleware<Provider<ethers::prelude::Http>, Wallet<SigningKey>>> {
+    let file = File::open(abi_path).expect("No JSON file");
+    let contract_abi: Abi = serde_json::from_reader(file).expect("Wrong JSON format");
+
+    Contract::new(contract_address, contract_abi, contract_provider)
+}
+
+pub fn create_provider(node: &str) -> Provider<ethers::prelude::Http> {
+    Provider::try_from(node).expect("Wrong node")
 }
