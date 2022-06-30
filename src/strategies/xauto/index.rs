@@ -15,7 +15,7 @@ use ethers::{
 use eyre::Result;
 
 #[derive(Clone, Debug)]
-pub struct x_auto {
+pub struct XAuto {
     private_key: String,
     chain_id: u64,
     rpc: String,
@@ -24,15 +24,15 @@ pub struct x_auto {
 
 const PROTOCOL: &str = "xAuto";
 
-impl x_auto {
+impl XAuto {
     pub fn new(
         //constructor
         private_key: String,
         chain_id: u64,
         rpc: String,
         assets: [layer2_asset; 11],
-    ) -> x_auto {
-        return x_auto {
+    ) -> XAuto {
+        return XAuto {
             private_key,
             chain_id,
             rpc: crate::utilities::helpers::get_chain_id(chain_id).url,
@@ -55,7 +55,7 @@ impl x_auto {
         )
         .await;
 
-        let convert_amount = ether_converter::to_wei(amount.as_str(), "ether");
+        let convert_amount = format_amount(amount, self.chain_id, &self.rpc);
         let amount_in_wei = U256::from_dec_str(&convert_amount).unwrap();
 
         let token_addr = Address::from_str(token.protocol_address.clone().as_str()).unwrap();
@@ -85,7 +85,7 @@ impl x_auto {
         )
         .await;
 
-        let convert_amount = ether_converter::to_wei(amount.as_str(), "ether");
+        let convert_amount = format_amount(amount, self.chain_id, &self.rpc);
         let amount_in_wei = U256::from_dec_str(&convert_amount).unwrap();
 
         let tx = contract
@@ -122,12 +122,11 @@ impl x_auto {
             .await?; //get users shares
 
         let ppfs = contract
-            .method::<_, U256>("getPricePerFullShare", ())?
+            .method::<_, U256>(&token.ppfs_method, ())?
             .call()
             .await?; //get price per full shares
 
-        let withdrawal_decimal = 36;
-        let divisor = u128::pow(10, withdrawal_decimal) as f64;
+        let divisor = u128::pow(10, token.widthdraw_decimals) as f64;
 
         let share_ppfs = share.checked_mul(ppfs).unwrap(); //total shares
         let new_share_ppfs = U256::as_u128(&share_ppfs) as f64;

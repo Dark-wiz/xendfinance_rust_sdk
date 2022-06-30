@@ -14,7 +14,7 @@ pub struct layer2_asset {
     pub protocol_abi: String,
     pub network: u64,
     pub decimals: i32,
-    pub widthdraw_decimals: i32,
+    pub widthdraw_decimals: u32,
     pub ppfs_method: String,
 }
 
