@@ -49,13 +49,13 @@ pub const LOCALHOST: u64 = 0;
 
 pub fn get_chain_id(id: u64) -> ProviderType {
     match id {
-        ETHEREUM_MAINNET => PROVIDERS(String::from("ETHEREUM_MAINNET")),
-        BSC_MAINNET => PROVIDERS(String::from("BSC_MAINNET")),
-        BSC_TESTNET => PROVIDERS(String::from("BSC_TESTNET")),
-        POLYGON_MAINNET => PROVIDERS(String::from("POLYGON_MAINNET")),
-        POLYGON_TESTNET => PROVIDERS(String::from("POLYGON_TESTNET")),
-        LOCALHOST => PROVIDERS(String::from("LOCALHOST")),
-        _ => PROVIDERS(String::from("LOCALHOST")),
+        ETHEREUM_MAINNET => providers(String::from("ETHEREUM_MAINNET")),
+        BSC_MAINNET => providers(String::from("BSC_MAINNET")),
+        BSC_TESTNET => providers(String::from("BSC_TESTNET")),
+        POLYGON_MAINNET => providers(String::from("POLYGON_MAINNET")),
+        POLYGON_TESTNET => providers(String::from("POLYGON_TESTNET")),
+        LOCALHOST => providers(String::from("LOCALHOST")),
+        _ => providers(String::from("LOCALHOST")),
     }
 }
 
@@ -66,12 +66,13 @@ pub struct TransactionResult {
 }
 
 #[derive(Debug)]
+#[warn(non_camel_case_types)]
 pub enum SavingStrtegyType {
-    YEARN_FINANCE,
-    DEFI_DOLLARS,
+    YearnFinance,
+    DefiDollars,
 }
 
-pub fn PROVIDERS(state: String) -> ProviderType {
+pub fn providers(state: String) -> ProviderType {
     if state == "ETHEREUM_MAINNET" {
         let ethereum = ProviderType {
             name: "ETHEREUM_MAINNET".to_string(),
@@ -132,7 +133,7 @@ pub fn PROVIDERS(state: String) -> ProviderType {
 }
 
 pub fn get_address_by_name(addresses: Vec<get_addresses::ProtocolAddress>, name: String) -> String {
-    let mut response = addresses
+    let response = addresses
         .into_iter()
         .filter(|address| address.name == name)
         .last()
@@ -146,7 +147,6 @@ pub fn get_address_by_name(addresses: Vec<get_addresses::ProtocolAddress>, name:
 }
 
 pub fn capitalize_first_letter(s: String) -> String {
-    s.as_str();
     let mut c = s.chars();
     match c.next() {
         None => String::new(),

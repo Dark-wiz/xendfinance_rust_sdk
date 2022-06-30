@@ -1,7 +1,5 @@
-use crate::utilities::layer2_assets;
 use serde_derive::Deserialize;
 use serde_derive::Serialize;
-use std::borrow::Borrow;
 use std::fmt;
 
 use super::helpers;
@@ -70,11 +68,6 @@ pub struct Addresses {
     pub xend_token: String,
     pub token: String,
     pub protocol_currency: String,
-}
-
-enum Result<T, E> {
-    Ok(T),
-    Err(E),
 }
 
 pub async fn get_bsc_mainnet_addresses() -> Vec<Data> {

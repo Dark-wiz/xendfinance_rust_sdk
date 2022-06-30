@@ -9,7 +9,6 @@ use ethers::{
 
 use std::{
     fs::File,
-    ops::{Div, Mul},
     str::FromStr,
 };
 
@@ -22,7 +21,6 @@ pub async fn create_contract(
 ) -> Contract<SignerMiddleware<Provider<ethers::prelude::Http>, Wallet<SigningKey>>> {
     let contract_provider = create_provider(&provider);
 
-    let file = File::open(abi).expect("No JSON file");
     let address = Address::from_str(&contract_address).unwrap();
 
     let wallet: Wallet<SigningKey> = private_key.parse().unwrap();

@@ -1,4 +1,4 @@
-use crate::environments::testnet::get_testnet_protocols;
+use crate::{environments::testnet::get_testnet_protocols, sdk::Options};
 
 use super::get_addresses::{Addresses, BscProtocols};
 
@@ -20,7 +20,7 @@ pub fn get_protocol_essentials(
     protocol_name: String,
 ) -> ProtocolSelector {
     let mut available: Vec<AvailableAddress> = Vec::new();
-    let mut addresses: Addresses;
+    let addresses: Addresses;
     let mut name: String = "".to_string();
 
     if !protocol_name.is_empty() {
@@ -57,7 +57,7 @@ pub fn get_protocol_essentials(
     selector
 }
 
-pub async fn protocol_selector(options: super::super::Options)-> ProtocolSelector{
+pub async fn protocol_selector(options: Options)-> ProtocolSelector{
     let protocol_name = options.protocol_name;
     let environment = options.env;
     let local_protocol = options.protocols;

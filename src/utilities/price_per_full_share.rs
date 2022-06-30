@@ -1,5 +1,5 @@
-use crate::{abi::protocol_adapter, strategies::create_contract::create_contract};
 use ethers::prelude::U256;
+use crate::{abi::protocol_adapter, strategies::create_contract::create_contract};
 
 pub async fn get_price_per_full_share(
     provider: String,

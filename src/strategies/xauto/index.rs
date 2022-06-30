@@ -3,8 +3,8 @@ use std::{ops::Div, str::FromStr};
 use crate::{
     strategies::create_contract::create_contract,
     utilities::{
-        helpers::{format_amount, TransactionResult, SUCCESS_TX},
-        layer2_assets::{filter_token, layer2_asset},
+        helpers::{format_amount, TransactionResult},
+        layer2_assets::{filter_token, Layer2Asset},
         privatekey_to_address::retrieve_address,
     },
 };
@@ -19,7 +19,7 @@ pub struct XAuto {
     private_key: String,
     chain_id: u64,
     rpc: String,
-    assets: [layer2_asset; 11],
+    assets: [Layer2Asset; 11],
 }
 
 const PROTOCOL: &str = "xAuto";
@@ -30,7 +30,7 @@ impl XAuto {
         private_key: String,
         chain_id: u64,
         rpc: String,
-        assets: [layer2_asset; 11],
+        assets: [Layer2Asset; 11],
     ) -> XAuto {
         return XAuto {
             private_key,
@@ -201,7 +201,7 @@ impl XAuto {
         let address = retrieve_address(&self.private_key, self.chain_id, self.rpc.clone());
 
         let val = match contract
-            .method::<_, U256>("balanceOf", (address))
+            .method::<_, U256>("balanceOf", address)
             .unwrap()
             .call()
             .await

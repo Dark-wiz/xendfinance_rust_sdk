@@ -1,12 +1,5 @@
 use ethers::prelude::Address;
-use secp256k1::{
-    rand::{rngs, SeedableRng}
-};
-use super::{helpers::get_chain_id, privatekey_to_address::retrieve_address};
-enum Result<T, E> {
-    Ok(T),
-    Err(E),
-}
+use super::{ privatekey_to_address::retrieve_address};
 
 #[derive(Clone, Debug)]
 pub struct WalletKeys {

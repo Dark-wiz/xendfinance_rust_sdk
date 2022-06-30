@@ -2,7 +2,7 @@ use crate::utilities::get_addresses::{Addresses, BscProtocols};
 
 pub fn get_testnet_protocols() -> Vec<BscProtocols> {
     let mut testnet_protocols: Vec<BscProtocols> = Vec::new();
-    let venusAddress = Addresses {
+    let venus_address = Addresses {
         protocol_adapter: "0xb69BF00bB8F724Bc3BfbC66A7EE423c80c303c8c".to_string(),
         protocol_service: "0x4ff202306C877841eed4d999543A916Cbde476E4".to_string(),
         groups: "0x14D765A51D8765EC6eaD1A7902F314817A9f07d0".to_string(),
@@ -21,7 +21,7 @@ pub fn get_testnet_protocols() -> Vec<BscProtocols> {
     let venus = BscProtocols {
         name: "Venus".to_string(),
         code: "venus".to_string(),
-        addresses: venusAddress,
+        addresses: venus_address,
     };
 
     
