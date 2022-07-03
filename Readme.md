@@ -12,7 +12,7 @@ use xendfinance_rust_sdk::sdk::{Options, XendFinanceSdk};
 ```
 
 ##check /examples for more implementations
-
+Implementing xAuto contract
 ```
 let pk: String = "xxxxxxxx".to_string();//private_key
     let option_val = Options::new("mainnet").await;
