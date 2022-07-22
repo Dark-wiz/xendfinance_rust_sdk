@@ -2,6 +2,7 @@ use crate::strategies;
 use crate::utilities;
 
 use ethers::prelude::Address;
+use ethers::prelude::U256;
 use strategies::xauto::index::XAuto;
 use strategies::xvault::index::XVault;
 use utilities::{
@@ -137,14 +138,15 @@ impl XendFinanceSdk {
         response.to_string()
     }
 
-    pub async fn get_ppfs(&self) {
-        get_price_per_full_share(
+    pub async fn get_ppfs(&self)->U256 {
+        let ppfs = get_price_per_full_share(
             self.provider.clone(),
             self.addresses.protocol_adapter.clone(),
             self.private_key.as_str().clone(),
             self.chain_id,
         )
         .await;
+        ppfs
     }
 
     pub async fn apys(&self) -> Vec<ApyData> {
