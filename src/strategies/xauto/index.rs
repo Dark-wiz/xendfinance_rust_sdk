@@ -66,7 +66,7 @@ impl XAuto {
 
         let receipt: TransactionReceipt = tx.send().await?.await?.unwrap(); // Send transaction
         let result = TransactionResult {
-            transaction_hash: receipt.transaction_hash.to_string(),
+            transaction_hash: receipt.transaction_hash,
         };
         Ok(result)
     }
@@ -95,7 +95,7 @@ impl XAuto {
         let receipt: TransactionReceipt = tx.send().await?.await?.unwrap(); // Send transaction
 
         let result = TransactionResult {
-            transaction_hash: receipt.transaction_hash.to_string(),
+            transaction_hash: receipt.transaction_hash,
         };
         Ok(result)
     }
@@ -151,7 +151,7 @@ impl XAuto {
         let receipt: TransactionReceipt = tx.send().await?.await?.unwrap(); // Send transaction
 
         let result = TransactionResult {
-            transaction_hash: receipt.transaction_hash.to_string(),
+            transaction_hash: receipt.transaction_hash,
         };
         Ok(result)
     }

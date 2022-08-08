@@ -1,5 +1,6 @@
 use super::get_addresses;
 use ether_converter;
+use ethers::types::H256;
 use serde_derive::Deserialize;
 use serde_derive::Serialize;
 use ethers::prelude::{ U256, U64};
@@ -61,7 +62,7 @@ pub fn get_chain_id(id: u64) -> ProviderType {
 
 #[derive(Debug)]
 pub struct TransactionResult {
-    pub transaction_hash: String,
+    pub transaction_hash: H256,
     // pub status: bool
 }
 
