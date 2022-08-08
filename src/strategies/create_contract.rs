@@ -1,16 +1,10 @@
 use ethers::{
-    abi::{Abi},
+    abi::Abi,
     contract::Contract,
-    prelude::{
-        k256::ecdsa::SigningKey, Address, Provider, Signer,
-        SignerMiddleware, Wallet,
-    },
+    prelude::{k256::ecdsa::SigningKey, Address, Provider, Signer, SignerMiddleware, Wallet},
 };
 
-use std::{
-    fs::File,
-    str::FromStr,
-};
+use std::{fs::File, str::FromStr, path::Path};
 
 pub async fn create_contract(
     provider: String,
@@ -37,7 +31,19 @@ fn create_contract_instance(
     abi_path: &str,
     contract_provider: SignerMiddleware<Provider<ethers::prelude::Http>, Wallet<SigningKey>>,
 ) -> Contract<SignerMiddleware<Provider<ethers::prelude::Http>, Wallet<SigningKey>>> {
-    let file = File::open(abi_path).expect("No JSON file");
+
+    let root = match project_root::get_project_root() {
+        Ok(p)=> p,
+        Err(e) => panic!("Error obtaining project root {:?}", e)
+    };
+    let root_res = root.to_str().unwrap();
+
+    let file_path = format!("{}{}",root_res, abi_path);
+
+    // let fullpath = format!("{}{}", "c://xendfinance_rust_sdk/", abi_path);
+    print!("{:?} - abi path", file_path);
+    // let file = File::open("").expect("No JSON file");
+    let file = File::open(file_path).expect("No JSON file");
     let contract_abi: Abi = serde_json::from_reader(file).expect("Wrong JSON format");
 
     Contract::new(contract_address, contract_abi, contract_provider)
